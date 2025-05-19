@@ -1,0 +1,1 @@
+BOT_TOKEN = "XXXXXXXXX"  # @MosPoly_Helperbot
