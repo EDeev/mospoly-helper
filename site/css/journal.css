@@ -1,0 +1,239 @@
+/* Стили для страницы журнала */
+
+/* Journal Timeline */
+.journal-timeline {
+    padding: 5rem 0;
+}
+
+.timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 120px;
+    width: 4px;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+}
+
+.timeline-entry {
+    position: relative;
+    margin-bottom: 4rem;
+    padding-top: 1rem;
+}
+
+.timeline-entry:last-child {
+    margin-bottom: 0;
+}
+
+.entry-date {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+}
+
+.date-box {
+    width: 80px;
+    height: 80px;
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius-md);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+}
+
+.date-box .day {
+    font-size: 1.75rem;
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+}
+
+.date-box .month {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+}
+
+.date-box .year {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.entry-content {
+    margin-left: 170px;
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    position: relative;
+}
+
+.entry-content::before {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    left: -20px;
+    border: 10px solid transparent;
+    border-right-color: var(--bg-color);
+}
+
+.entry-content h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.entry-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-tertiary);
+}
+
+.entry-body {
+    color: var(--text-secondary);
+}
+
+.entry-body p {
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+}
+
+.entry-body h3 {
+    font-size: 1.25rem;
+    margin: 2rem 0 1rem;
+    color: var(--text-primary);
+}
+
+.entry-body ul {
+    margin-bottom: 2rem;
+}
+
+.entry-body li {
+    margin-bottom: 0.75rem;
+}
+
+.entry-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.gallery-item {
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-caption {
+    display: block;
+    padding: 0.75rem;
+    background-color: var(--bg-secondary);
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.entry-conclusion {
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.entry-conclusion p {
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 30px;
+    }
+    
+    .entry-date {
+        width: 60px;
+    }
+    
+    .date-box {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .date-box .day {
+        font-size: 1.25rem;
+    }
+    
+    .date-box .month,
+    .date-box .year {
+        font-size: 0.75rem;
+    }
+    
+    .entry-content {
+        margin-left: 80px;
+    }
+    
+    .entry-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .entry-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .timeline::before {
+        left: 20px;
+    }
+    
+    .entry-date {
+        width: 40px;
+    }
+    
+    .date-box {
+        width: 40px;
+        height: 70px;
+        padding: 0.25rem;
+    }
+    
+    .date-box .day {
+        font-size: 1rem;
+    }
+    
+    .date-box .month,
+    .date-box .year {
+        font-size: 0.65rem;
+    }
+    
+    .entry-content {
+        margin-left: 60px;
+        padding: 1.5rem;
+    }
+    
+    .entry-gallery {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,202 @@
+/* Стили для страницы участников проекта */
+
+/* Team Section */
+.team-section {
+    padding: 5rem 0;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.team-card {
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.member-photo {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+}
+
+.member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    aspect-ratio: 1;
+}
+
+.team-card:hover .member-photo img {
+    transform: scale(1.05);
+}
+
+.member-info {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.member-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.member-role {
+    color: var(--primary-color);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: 1.5rem;
+}
+
+.contribution {
+    margin-top: auto;
+}
+
+.contribution h4 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.contribution ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contribution li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--text-tertiary);
+}
+
+.contribution li::before {
+    content: '•';
+    position: absolute;
+    left: 0.5rem;
+    color: var(--primary-color);
+}
+
+/* Curators Section */
+.curators-section {
+    padding: 5rem 0;
+    background-color: var(--bg-secondary);
+}
+
+.curators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.curator-card {
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-normal);
+}
+
+.curator-card:hover {
+    transform: translateY(-5px);
+}
+
+.curator-photo {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+.curator-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.curator-card:hover .curator-photo img {
+    transform: scale(1.05);
+}
+
+.curator-info {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.curator-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.curator-role {
+    color: var(--primary-color);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: 0.25rem;
+}
+
+.curator-title {
+    color: var(--text-tertiary);
+    font-size: 0.95rem;
+}
+
+/* Team Structure */
+.team-structure {
+    padding: 5rem 0;
+}
+
+.structure-diagram {
+    max-width: 900px;
+    margin: 3rem auto;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.structure-diagram img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.section-outro {
+    max-width: 800px;
+    margin: 2rem auto 0;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .team-grid, .curators-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .team-grid, .curators-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .member-photo, .curator-photo {
+        aspect-ratio: 3/2;
+    }
+}
