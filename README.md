@@ -10,7 +10,7 @@
 
 ## Задание
 
-Задание размещено в папке **task** в файле [README.md](task/README.md).
+Задание размещено в папке **task** в файле [README.md](task/README.md). Сайт [easy-access.new-devs.ru](https://easy-access.new-devs.ru)
 
 ## Вариативная часть задания
 
