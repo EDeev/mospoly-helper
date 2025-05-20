@@ -82,7 +82,7 @@ def make_full_clip(paths):
     full_clip = concatenate_videoclips(clips)  # cклеиваем все клипы
 
     full_clip = full_clip.without_audio() # удаляем звук
-    full_clip = full_clip.time_transform(lambda t: t * 1.5).with_duration(full_clip.duration / 1.5)    # ускоряем в 1.5 раз
+    full_clip = full_clip.time_transform(lambda t: t * 2).with_duration(full_clip.duration / 2)    # ускоряем в 1.5 раз
     full_clip = full_clip.resized(height=512)
 
     full_clip_name = f"{paths[-1][21:].replace('.mp4', '')}-{'all' if len(paths) == 3 else 'small'}.mp4" # генерируем рандомный 5-ти значный ключ
