@@ -56,12 +56,10 @@ async def add_cabinet(msg: Message) -> None:
     user_dict = jsn.read_json()
     edu_keys = list(user_dict.keys())
 
-    if ((cab[0] == "м" and len(cab) == 5 and "mi" == edu_keys[0]) or
-            (cab[:2] == "ав" and len(cab) == 6 and "av" == edu_keys[0]) or
-            (cab[:2] == "пк" and len(cab) == 6 and "pk" == edu_keys[0]) or
-            (cab[:2] == "пр" and len(cab) == 6 and "pr" == edu_keys[0]) or
+    if ((cab[0] == "м" and "mi" == edu_keys[0]) or (cab[:2] == "ав" and "av" == edu_keys[0]) or
+            (cab[:2] == "пк" and "pk" == edu_keys[0]) or (cab[:2] == "пр" and "pr" == edu_keys[0]) or
             (cab[0] in ["а", "б", "в", "н", "нд"] and "bs" == edu_keys[0])):
-        lst_routes = get_routes(edu_keys[0], cab)
+        lst_routes = await get_routes(edu_keys[0], cab)
 
         if lst_routes:
             user_dict[edu_keys[0]] = lst_routes
@@ -94,7 +92,7 @@ async def var_button(call: CallbackQuery) -> None:
         if os.path.exists(f"../data/cache/{lst_routes[-1][21:].replace('.mp4', '-all.mp4')}"):
             path = f"../data/cache/{lst_routes[-1][21:].replace('.mp4', '-all.mp4')}"
         else:
-            path = make_full_clip(lst_routes)
+            path = await make_full_clip(lst_routes)
             if not path:
                 await msg.edit_text("Данного маршрута в нашей базе пока нет, извините за неудобство, можете написать "
                                     "желаемые маршруты на почту <a href='mailto:support@new-devs.ru' >support@new-devs.ru</a>")
@@ -103,7 +101,7 @@ async def var_button(call: CallbackQuery) -> None:
         if os.path.exists(f"../data/cache/{lst_routes[-1][21:].replace('.mp4', '-small.mp4')}"):
             path = f"../data/cache/{lst_routes[-1][21:].replace('.mp4', '-small.mp4')}"
         else:
-            path = make_full_clip(lst_routes[1:])
+            path = await make_full_clip(lst_routes[1:])
             if not path:
                 await msg.edit_text("Данного маршрута в нашей базе пока нет, извините за неудобство, можете написать "
                                     "желаемые маршруты на почту <a href='mailto:support@new-devs.ru' >support@new-devs.ru</a>")
