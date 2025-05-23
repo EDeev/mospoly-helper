@@ -68,23 +68,24 @@ async def make_full_clip(paths):
         print("Некоторые файлы не найдены")
         return None
 
-    clips = [VideoFileClip(path) for path in paths]  # cоздаем список клипов
+    full_clip_name = f"{paths[-1][21:].replace('.mp4', '')}-{'all' if len(paths) == 3 else 'small'}.mp4"
 
-    full_clip = concatenate_videoclips(clips)  # cклеиваем все клипы
+    if not os.path.exists(f"../data/cache/{full_clip_name}"):
+        clips = [VideoFileClip(path) for path in paths]  # cоздаем список клипов
 
-    full_clip = full_clip.without_audio() # удаляем звук
-    full_clip = full_clip.time_transform(lambda t: t * 2).with_duration(full_clip.duration / 2)    # ускоряем в 2 раз
+        full_clip = concatenate_videoclips(clips)  # cклеиваем все клипы
 
-    full_clip_name = f"{paths[-1][21:].replace('.mp4', '')}-{'all' if len(paths) == 3 else 'small'}.mp4" # генерируем рандомный 5-ти значный ключ
+        full_clip = full_clip.without_audio() # удаляем звук
+        full_clip = full_clip.time_transform(lambda t: t * 2).with_duration(full_clip.duration / 2)    # ускоряем в 2 раз
+        full_clip = full_clip.resized(height=400)
 
-    # рендерим видео с параметрами
-    full_clip.write_videofile(f"../data/cache/{full_clip_name}",
-                            fps=30,
-                            codec="libx264",
-                            bitrate="1500k",
-                            preset="fast",
-                            ffmpeg_params=["-crf", "23"])
-
+        # рендерим видео с параметрами
+        full_clip.write_videofile(f"../data/cache/{full_clip_name}",
+                                fps=30,
+                                codec="libx264",
+                                bitrate="1500k",
+                                preset="fast",
+                                ffmpeg_params=["-crf", "23"])
 
     return f"../data/cache/{full_clip_name}"
 
