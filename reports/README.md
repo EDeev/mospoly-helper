@@ -36,5 +36,4 @@
 
 ## Дополнительные материалы
 
-- [timeline.xlsx](timeline.xlsx) - Временная диаграмма выполнения работ по практике
-- [presentation.pptx](presentation.pptx) - Презентация проекта для защиты
+[presentation.pdf](presentation.pdf) - Презентация проекта для защиты
