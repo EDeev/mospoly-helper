@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: pip install ruff==0.14.0 -r requirements.txt
+      - name: Ruff (синтаксис и ошибки)
+        run: ruff check --select E9,F --ignore F403,F405 src/code
+      - name: Разбор номеров кабинетов и импорт бота
+        working-directory: src/code
+        env:
+          BOT_TOKEN: "123456:TEST"
+        run: |
+          python -c "
+          import asyncio, scripts
+          r = asyncio.run(scripts.get_routes('pr', 'пр2202а'))
+          assert r[-1].endswith('pr-2b-02f-2202аc.mp4'), r
+          assert asyncio.run(scripts.get_routes('pr', 'пр')) is None
+          import handlers, init
+          print('ok')"
