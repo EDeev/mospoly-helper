@@ -1,9 +1,13 @@
 import json
+import os
 
 
 class JsonTools:
     def __init__(self, user_id):
         self.f_name = f"../data/users/{user_id}.json"
+
+    def exists(self):
+        return os.path.exists(self.f_name)
 
     def save_json(self, data):
         with open(self.f_name, "w", encoding="utf8") as f:

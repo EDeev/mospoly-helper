@@ -26,11 +26,11 @@ async def help_handler(msg: Message) -> None:
 
 @router.message(Command("route"))
 async def route_handler(msg: Message) -> None:
-    buttons = [[InlineKeyboardButton(text=f"На Большой Семёновской", callback_data="edu:bs")],
-               [InlineKeyboardButton(text=f"На Павла Корчагина", callback_data="edu:pk")],
-               [InlineKeyboardButton(text=f"На Прянишкова", callback_data="edu:pr"),
-                InlineKeyboardButton(text=f"На Михалковской", callback_data="edu:mi")],
-               [InlineKeyboardButton(text=f"На Автозаводской", callback_data="edu:av")]]
+    buttons = [[InlineKeyboardButton(text="На Большой Семёновской", callback_data="edu:bs")],
+               [InlineKeyboardButton(text="На Павла Корчагина", callback_data="edu:pk")],
+               [InlineKeyboardButton(text="На Прянишкова", callback_data="edu:pr"),
+                InlineKeyboardButton(text="На Михалковской", callback_data="edu:mi")],
+               [InlineKeyboardButton(text="На Автозаводской", callback_data="edu:av")]]
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
 
     await msg.answer(text="Выберите корпус на котором вы хотите проложить маршрут:", reply_markup=keyboard)
@@ -50,9 +50,12 @@ async def route_button(call: CallbackQuery) -> None:
 
 @router.message(F.content_type == ContentType.TEXT)
 async def add_cabinet(msg: Message) -> None:
-    cab = msg.text.lower()
+    cab = msg.text.lower().strip()
 
     jsn = JsonTools(msg.from_user.id)
+    if cab.startswith("/") or not jsn.exists():
+        await msg.answer("Сначала выберите корпус командой <b>/route</b>, затем напишите номер кабинета.")
+        return
     user_dict = jsn.read_json()
     edu_keys = list(user_dict.keys())
 
@@ -65,13 +68,14 @@ async def add_cabinet(msg: Message) -> None:
             user_dict[edu_keys[0]] = lst_routes
             jsn.save_json(user_dict)
 
-            buttons = [[InlineKeyboardButton(text=f"От входа на территорию", callback_data="route:build")],
-                       [InlineKeyboardButton(text=f"От входа в корпус", callback_data="route:floor")]]
+            buttons = [[InlineKeyboardButton(text="От входа на территорию", callback_data="route:build")],
+                       [InlineKeyboardButton(text="От входа в корпус", callback_data="route:floor")]]
             keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
 
             await msg.answer("Кабинет успешно получен, обрабатываем путь! Откуда вам проложить маршрут:", reply_markup=keyboard)
         else:
-            await msg.answer("Обрыв программы по неизвестной причине!")
+            await msg.answer("Не получилось разобрать номер кабинета. Напишите его в точности как в личном "
+                             "кабинете, например <b>пр2202а</b>.")
     else:
         await msg.answer("Вы скинули не кабинет! Я же вижу)")
 
@@ -81,9 +85,13 @@ async def var_button(call: CallbackQuery) -> None:
     action = call.data.split(":")[1]
 
     jsn = JsonTools(call.from_user.id)
-    user_dict = jsn.read_json()
+    user_dict = jsn.read_json() if jsn.exists() else {}
     edu_keys = list(user_dict.keys())
-    lst_routes = user_dict[edu_keys[0]]
+    lst_routes = user_dict[edu_keys[0]] if edu_keys else []
+    if not lst_routes:
+        # кнопки от прошлого запроса: кабинет ещё не выбран заново
+        await call.message.answer("Маршрут устарел, начните заново: <b>/route</b>")
+        return
 
     msg = await call.message.answer("1. Получение видео...")
     path = ""

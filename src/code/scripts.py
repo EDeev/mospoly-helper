@@ -1,7 +1,15 @@
 from moviepy import VideoFileClip, concatenate_videoclips
-import os, asyncio
+import os
 
 async def get_routes(id_building: str, id_cab: str, other=False):
+    try:
+        return _build_routes(id_building, id_cab, other)
+    except IndexError:
+        # номер кабинета короче ожидаемого формата
+        return None
+
+
+def _build_routes(id_building: str, id_cab: str, other=False):
     if other:
         id_cab = id_cab.replace('-', "")
         building=id_cab[0]
