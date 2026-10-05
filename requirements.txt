@@ -1,16 +1,5 @@
-# Основные зависимости для МосПолиХелпер
-# Telegram Bot Framework
-aiogram==3.0.0
+aiogram==3.13.1
+moviepy==2.1.2
 
-# Обработка видео
-moviepy==1.0.3
-
-# Дополнительные зависимости (устанавливаются автоматически с moviepy)
-# imageio>=2.5
-# imageio-ffmpeg>=0.2.0
-# numpy>=1.17.3
-
-# Примечание: FFmpeg должен быть установлен в системе отдельно
-# Ubuntu/Debian: sudo apt update && sudo apt install ffmpeg
-# macOS: brew install ffmpeg  
-# Windows: https://ffmpeg.org/download.html
+# FFmpeg ставится отдельно (в Docker-образе — из apt):
+# Ubuntu/Debian: sudo apt install ffmpeg; macOS: brew install ffmpeg; Windows: https://ffmpeg.org/download.html
