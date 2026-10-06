@@ -3,6 +3,7 @@
 [Русский](README.md) · **English**
 
 [![CI](https://github.com/EDeev/mospoly-helper/actions/workflows/ci.yml/badge.svg)](https://github.com/EDeev/mospoly-helper/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/EDeev/mospoly-helper)](https://github.com/EDeev/mospoly-helper/releases)
 
 A Telegram bot that sends a video route to a classroom in Moscow Polytechnic University buildings: pick a
 campus, type the room number and get a video note with the way from the campus gate or from the building
@@ -31,6 +32,14 @@ git clone https://github.com/EDeev/mospoly-helper.git && cd mospoly-helper
 cp .env.example .env      # BOT_TOKEN from @BotFather
 docker compose up -d
 ```
+
+**Prebuilt image** (videos inside, the route cache is built on the fly):
+
+```bash
+docker run -d -e BOT_TOKEN=token -v mospoly-cache:/app/src/data/cache -v mospoly-users:/app/src/data/users ghcr.io/edeev/mospoly-helper
+```
+
+(same as `git.deev.su/edeev/mospoly-helper`).
 
 Without Docker: Python 3.10+, FFmpeg, `pip install -r requirements.txt`, then
 `cd src/code && BOT_TOKEN=… python bot.py`. More in [QUICKSTART.md](QUICKSTART.md) and [DOCKER.md](DOCKER.md) (in Russian).
